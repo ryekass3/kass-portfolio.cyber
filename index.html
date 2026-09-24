@@ -39,8 +39,7 @@
     </p>
 
     <p>
-        <em>This site was designed and developed in collaboration with Claude AI &mdash; an approach that
-        reflects how I work: leveraging modern tools efficiently to deliver a polished result.</em>
+        <em>This site was designed and developed in collaboration with Claude AI for visual appeal.</em>
     </p>
     <div class="cta-row">
       <a href="#projects" class="btn">View Projects</a>
@@ -227,41 +226,110 @@
   <div class="wrap">
     <div class="section-head reveal"><h2>Projects</h2></div>
     <!-- ★ EDIT: Duplicate or remove .project blocks -->
+
     <div class="project reveal">
       <div class="project-header">
         <span class="project-title">Home Network Infrastructure</span>
-        <span class="project-tech">FortiGate · VLANs · Pi-hole</span>
+        <span class="project-tech">FortiGate · FortiSwitch · FortiAP · VLANs</span>
       </div>
-      <p>Designed and deployed an enterprise-grade home network using FortiGate, FortiSwitch, and FortiAP. Configured VLANs, DNS-based ad filtering, and firewall policies.</p>
+      <ul class="project-list">
+        <li>Designed and deployed a fully segmented network on FortiGate, FortiSwitch, and FortiAP, splitting Management, Trusted, Server, IoT, and Guest traffic into isolated VLANs, each with its own SSID and DHCP scope.</li>
+        <li>Implemented an asymmetric trust model via firewall policy and address groups &mdash; Trusted can reach Servers, but not the reverse &mdash; and hard-isolated IoT and Guest from the internal network entirely.</li>
+      </ul>
     </div>
+
+    <div class="project reveal">
+      <div class="project-header">
+        <span class="project-title">Site-to-Site VPN &amp; Firewall Security Audit</span>
+        <span class="project-tech">FortiGate · IPsec · Policy Audit</span>
+      </div>
+      <ul class="project-list">
+        <li>Deployed and maintain a site-to-site IPsec VPN connecting two locations, using address-group-based policies rather than a rule per VLAN pair, so the network scales without a policy explosion.</li>
+        <li>Led a full audit of the tunnel's firewall policy set &mdash; 164 objects across addresses, groups, and policies on both firewalls &mdash; cross-referencing exported configs to catch drift between sites.</li>
+        <li>Identified a critical gap where one traffic path across the tunnel was silently denied on one firewall despite being fully configured on the other, and documented the exact remediation before it caused an outage.</li>
+        <li>Authored a consistent naming convention for addresses, groups, and policies going forward to keep both firewalls auditable as the network grows.</li>
+      </ul>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-header">
+        <span class="project-title">FortiGate Automated Backup Pipeline</span>
+        <span class="project-tech">FortiGate Automation · SFTP · Cron</span>
+      </div>
+      <ul class="project-list">
+        <li>Built automated nightly encrypted configuration backups for both firewalls to a dedicated backup server, using native automation triggers and actions instead of manual exports &mdash; closing the top risk item in the network's disaster-recovery plan.</li>
+        <li>Diagnosed and resolved a multi-layer IPsec routing failure &mdash; a mismatched tunnel selector, a missing firewall policy, and a reverse-path-check rejection &mdash; using systematic packet flow tracing to get backup traffic flowing end-to-end.</li>
+        <li>Implemented a 14-day retention policy via scheduled cleanup to balance backup history against storage growth.</li>
+      </ul>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-header">
+        <span class="project-title">AI-Powered Infrastructure Assistant</span>
+        <span class="project-tech">Python · Ollama · Discord · Proxmox API</span>
+      </div>
+      <ul class="project-list">
+        <li>Built a natural-language Discord bot that lets me check status and power-control homelab virtual machines and containers by chatting with it, using a locally hosted LLM to turn each message into a structured, schema-validated action plan.</li>
+        <li>Designed the security model so the language model is never trusted with execution: every proposed action is checked against a maintained allowlist, gated by Discord role, and any power action requires an explicit human confirmation click before it reaches the infrastructure.</li>
+        <li>Added per-action cooldowns, single-use confirmation windows, and full audit logging so every executed command is traceable.</li>
+      </ul>
+    </div>
+
     <div class="project reveal">
       <div class="project-header">
         <span class="project-title">Self-Hosted Media Stack</span>
         <span class="project-tech">Docker · TrueNAS · Jellyfin</span>
       </div>
-      <p>Built a containerized media automation stack backed by TrueNAS ZFS storage. Includes Jellyfin for media playback, as well as Tdarr for video transcoding.</p>
+      <ul class="project-list">
+        <li>Built a containerized media automation stack backed by TrueNAS storage, with Jellyfin for playback and Tdarr handling video transcoding.</li>
+        <li>Runs on a dedicated storage pool with passthrough disk access, kept separate from personal file storage and backups for fault isolation.</li>
+      </ul>
     </div>
+
+    <div class="project reveal">
+      <div class="project-header">
+        <span class="project-title">Segmented Storage Architecture</span>
+        <span class="project-tech">TrueNAS · ZFS · RAIDZ2</span>
+      </div>
+      <ul class="project-list">
+        <li>Designed a purpose-built, multi-instance TrueNAS storage architecture: a mirrored pool for personal files, a large passthrough pool feeding the media stack, and a dedicated RAIDZ2 pool as the Proxmox backup target.</li>
+        <li>Configured weekly integrity scrubs across every pool with zero errors, and route host backups to the dedicated backup pool split by machine.</li>
+      </ul>
+    </div>
+
     <div class="project reveal">
       <div class="project-header">
         <span class="project-title">Grafana Monitoring Dashboard</span>
         <span class="project-tech">Grafana · Prometheus · Netdata</span>
       </div>
-      <p>Integrated TrueNAS SCALE metrics into a custom Grafana dashboard via Netdata and Prometheus, working through FreeBSD-specific metric naming differences.</p>
+      <ul class="project-list">
+        <li>Integrated TrueNAS SCALE metrics into a custom Grafana dashboard via Netdata and Prometheus.</li>
+        <li>Worked through FreeBSD-specific metric naming differences to get accurate, consistent panels across the stack.</li>
+      </ul>
     </div>
+
     <div class="project reveal">
       <div class="project-header">
         <span class="project-title">Game Server Hosting</span>
         <span class="project-tech">Proxmox · Pterodactyl · Linux</span>
       </div>
-      <p>Deployed and maintained game servers in Proxmox LXC containers using Pterodactyl Panel. Configured external access tunneling via playit.gg without exposing home IP.</p>
+      <ul class="project-list">
+        <li>Deployed and maintain multiple game servers in Proxmox LXC containers, managed through a self-hosted Pterodactyl panel with per-server CPU, RAM, and disk limits.</li>
+        <li>Set up cross-play support on a Minecraft server (Java + Bedrock via GeyserMC/Floodgate) and configured external access tunneling via Playit.gg without exposing my home IP.</li>
+      </ul>
     </div>
+
     <div class="project reveal">
       <div class="project-header">
         <span class="project-title">Local LLM Environment</span>
         <span class="project-tech">Ollama · qwen2.5-coder:7b · RTX A2000</span>
       </div>
-      <p>Deployed a locally hosted LLM environment using Ollama running qwen2.5-coder:7b on a Dell Precision 5570 (RTX A2000 8GB GPU, Fedora), enabling offline document parsing and AI-assisted workloads without relying on cloud-based services.</p>
+      <ul class="project-list">
+        <li>Deployed a locally hosted LLM environment using Ollama running qwen2.5-coder:7b on a Dell Precision 5570 (RTX A2000 8GB GPU, Fedora), enabling offline document parsing and AI-assisted workloads.</li>
+        <li>Processes sensitive data entirely on-device, without relying on cloud-based AI services.</li>
+      </ul>
     </div>
+
   </div>
 </section>
 
