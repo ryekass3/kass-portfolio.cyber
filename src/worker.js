@@ -1,5 +1,6 @@
 export default {
   async fetch(request, env, ctx) {
+    console.log("token present:", !!env.DISCORD_BOT_TOKEN, "len:", env.DISCORD_BOT_TOKEN?.length, "channel:", env.DISCORD_CHANNEL_ID);
     const url = new URL(request.url);
 
     if (!/\.(css|js|png|jpe?g|svg|ico|webp|woff2?)$/.test(url.pathname)) {
